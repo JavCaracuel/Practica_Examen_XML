@@ -106,7 +106,7 @@ public class App
         String Id;
         String Marca;
         String Modelo;
-        int Cilindrada=0;
+        String Cilindrada;
 
 
         try {
@@ -132,7 +132,7 @@ public class App
                     Modelo=eElement.getElementsByTagName("modelo").item(0).getTextContent();
 
 
-                    Cilindrada = Integer.parseInt(eElement.getElementsByTagName("cilindrada").item(0).getTextContent());
+                    Cilindrada = eElement.getElementsByTagName("cilindrada").item(0).getTextContent();
 
                     Coche Coche_aux=new Coche(Id,Marca,Modelo,Cilindrada);
 
