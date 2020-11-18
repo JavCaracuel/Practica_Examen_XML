@@ -5,7 +5,7 @@ public class Coche {
 String Id;
 String Marca;
 String Modelo;
-String Cilindrada=0;
+String Cilindrada;
 
     public Coche() {
     }
