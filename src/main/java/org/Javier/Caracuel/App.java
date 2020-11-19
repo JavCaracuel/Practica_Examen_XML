@@ -34,6 +34,8 @@ public class App
 
         int menu=0;
 
+        String Var_aux;
+
 
 
 
@@ -41,8 +43,8 @@ public class App
         do {
 
             System.out.println("   *****************************  Elige una  ********************************");
-            System.out.println("   *  1- Añadir una agenda                                                  *");
-            System.out.println("   *  2- Ver array                                                          *");
+            System.out.println("   *  1- Escribir XML                                                       *");
+            System.out.println("   *  2- Ver el contenido de concesionario                                  *");
             System.out.println("   *  3- Salir                                                              *");
             System.out.println("   **************************************************************************");
 
@@ -52,6 +54,13 @@ public class App
                 switch (menu){
 
                     case 1:
+
+                        System.out.println("Escriba el nombre del fichero:");
+
+
+                Var_aux=Entrada_teclado.next();
+
+                Escribir_fichero(Var_aux);
 
                         break;
 
@@ -157,6 +166,56 @@ public class App
 
 
     }
-  
+
+    public static void Escribir_fichero(String Nombre_Fichero){
+
+        try {
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            Document doc = db.newDocument();
+
+            // definimos el elemento raíz del documento
+            Element eRaiz = doc.createElement("concesionario");
+            doc.appendChild(eRaiz);
+
+            // definimos el nodo que contendrá los elementos
+            Element eCoche = doc.createElement("coche");
+            eRaiz.appendChild(eCoche);
+
+            // atributo para el nodo coche
+            Attr attr = doc.createAttribute("id");
+            attr.setValue("1");
+            eCoche.setAttributeNode(attr);
+
+            // definimos cada uno de los elementos y le asignamos un valor
+            Element eMarca = doc.createElement("marca");
+            eMarca.appendChild(doc.createTextNode("Renault"));
+            eCoche.appendChild(eMarca);
+
+            Element eModelo = doc.createElement("modelo");
+            eModelo.appendChild(doc.createTextNode("Megano"));
+            eCoche.appendChild(eModelo);
+
+            Element eCilindrada = doc.createElement("cilindrada");
+            eCilindrada.appendChild(doc.createTextNode("1.5"));
+            eCoche.appendChild(eCilindrada);
+
+            // clases necesarias finalizar la creación del archivo XML
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            DOMSource source = new DOMSource(doc);
+            StreamResult result = new StreamResult(new File("ARUS"+Nombre_Fichero+".xml"));
+
+            transformer.transform(source, result);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+
+
+
+    }
+
+
 
 }
